@@ -42,7 +42,7 @@ namespace GlobalGameJam
             imx = imx2;
             imy = imy2;
         }
-        public void size(int w2, int h2)
+        public void setSize(int w2, int h2)
         {
             width = w2;
             height = h2;

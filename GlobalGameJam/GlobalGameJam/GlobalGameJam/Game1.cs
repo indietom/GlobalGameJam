@@ -31,6 +31,8 @@ namespace GlobalGameJam
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
+        
+        tower tower = new tower();
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
