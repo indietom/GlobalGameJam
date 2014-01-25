@@ -10,7 +10,7 @@ namespace GlobalGameJam
         public wall(float x2, float y2)
         {
             setCoords(x2, y2);
-            setSpriteCoords(1,451);
+            setSpriteCoords(2,451);
             setSize(16, 16);
             destroy = false;
             hp = 5;

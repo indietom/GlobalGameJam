@@ -114,6 +114,7 @@
     <Compile Include="bullet.cs" />
     <Compile Include="enemy.cs" />
     <Compile Include="enemyBullet.cs" />
+    <Compile Include="menu.cs" />
     <Compile Include="objects.cs" />
     <Compile Include="particle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

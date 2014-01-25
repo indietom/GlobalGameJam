@@ -45,7 +45,7 @@ namespace GlobalGameJam
             // TODO: Add your initialization logic here
             for (float i = 0; i < 360; i += 10)
             {
-               walls.Add(new wall(tower.x+(float)Math.Cos(i)*50+3, tower.y+(float)Math.Sin(i)*50 + 10));
+               walls.Add(new wall(tower.x+(float)Math.Cos(i)*50+5, tower.y+(float)Math.Sin(i)*50 + 20));
             }
             walls.Add(new wall(9000, 9000));
             base.Initialize();
