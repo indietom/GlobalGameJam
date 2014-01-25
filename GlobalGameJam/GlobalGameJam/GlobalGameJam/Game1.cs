@@ -41,13 +41,11 @@ namespace GlobalGameJam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            foreach (wall w in walls)
+            for (float i = 0; i < 360; i++)
             {
-                for (float i = 0; i <= 360; i += 20 )
-                {
-                    w.setCoords(tower.x+(float)Math.Cos(i)*50, tower.y+(float)Math.Sin(i)*50);
-                }
+               walls.Add(new wall(tower.x+(float)Math.Cos(i)*50, tower.y+(float)Math.Sin(i)*50));
             }
+
             base.Initialize();
         }
 
@@ -121,6 +119,10 @@ namespace GlobalGameJam
             foreach (enemy e in enemies)
             {
                 e.drawSprite(spriteBatch, spritesheet);
+            }
+            foreach (wall w in walls)
+            {
+                w.drawSprite(spriteBatch, spritesheet);
             }
             foreach (enemyBullet eb in enemyBullets)
             {
