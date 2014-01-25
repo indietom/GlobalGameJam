@@ -35,10 +35,11 @@ namespace GlobalGameJam
         tower tower = new tower();
         wizard wizard = new wizard();
         List<bullet> bullets = new List<bullet>();
+        List<enemy> enemies = new List<enemy>();
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            enemies.Add(new enemy(100, 100,2));
             base.Initialize();
         }
 
@@ -80,7 +81,10 @@ namespace GlobalGameJam
             {
                 b.movment();
             }
-
+            foreach (enemy e in enemies)
+            {
+                e.movment();
+            }
             base.Update(gameTime);
         }
 
@@ -101,6 +105,10 @@ namespace GlobalGameJam
             }
             tower.drawSprite(spriteBatch, spritesheet);
             wizard.drawSprite(spriteBatch, spritesheet);
+            foreach (enemy e in enemies)
+            {
+                e.drawSprite(spriteBatch, spritesheet);
+            }
             foreach (bullet b in bullets)
             {
                 spriteBatch.Draw(spritesheet, new Vector2(b.x, b.y), new Rectangle(b.imx, b.imy, b.width, b.height), Color.White, b.angle, new Vector2(6, 2), 1.0f, SpriteEffects.None, 0); 

@@ -24,6 +24,7 @@ namespace GlobalGameJam
             setSize(12, 5);
             MouseState mouse = Mouse.GetState();
             mathAim(5, mouse.X, mouse.Y);
+            destroy = false;
 
         }
         public void movment()
