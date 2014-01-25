@@ -91,6 +91,13 @@ namespace GlobalGameJam
         {
             GraphicsDevice.Clear(Color.Green);
             spriteBatch.Begin();
+            for (int x = 0; x < 17; x++)
+            {
+                for (int y = 0; y < 10; y++)
+                {
+                    spriteBatch.Draw(spritesheet, new Vector2(x * 49, y * 49), new Rectangle(101, 1, 49, 49), Color.White);
+                }
+            }
             tower.drawSprite(spriteBatch, spritesheet); 
             foreach (bullet b in bullets)
             {
