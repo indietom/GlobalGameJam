@@ -21,14 +21,15 @@ namespace GlobalGameJam
         {
             setCoords(x2,y2);
             setSpriteCoords(1, 1);
-            setSize(32, 32);
+            setSize(64, 64);
+            MouseState mouse = Mouse.GetState();
+            mathAim(8, mouse.X, mouse.Y);
         }
         public void movment()
         {
             MouseState mouse = Mouse.GetState();
             x += veclocity_x;
             y += veclocity_y;
-            mathAim(8, mouse.X, mouse.Y);
         }
     }
 }

@@ -41,15 +41,12 @@ namespace GlobalGameJam
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
+        Texture2D spritesheet;
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            spritesheet = Content.Load<Texture2D>("spritesheet");
             // TODO: use this.Content to load your game content here
         }
 
@@ -94,9 +91,10 @@ namespace GlobalGameJam
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
+            tower.drawSprite(spriteBatch, spritesheet); 
             foreach (bullet b in bullets)
             {
-            
+                b.drawSprite(spriteBatch, spritesheet);
             }
             spriteBatch.End();
             // TODO: Add your drawing code here

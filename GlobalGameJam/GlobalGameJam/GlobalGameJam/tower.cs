@@ -23,6 +23,7 @@ namespace GlobalGameJam
             setCoords(400 - 16,240 - 16);
             setSpriteCoords(1, 1);
             setSize(32, 32);
+            inputActive = true;
         }
 
         public void input(List<bullet> bullets)
