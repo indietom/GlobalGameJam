@@ -9,18 +9,24 @@ namespace GlobalGameJam
     {
         public float accel;
         public int type;
-        public particle(float x2, float y2, float minAng, float maxAng, string color, int type2)
+        public particle(float x2, float y2, float randomAng, string color, int type2, float accel2)
         {
             Random random = new Random();
-            angle = random.Next((int)minAng, (int)maxAng);
+            angle = randomAng;
             setCoords(x2, y2);
             setSize(2, 2);
-            accel = 10f;
+            accel = accel2;
             type = type2;
             switch (color)
             {
                 case "red":
                     setSpriteCoords(76, 1);
+                    break;
+                case "white":
+                    setSpriteCoords(76, 15);
+                    break;
+                case "orange":
+                    setSpriteCoords(76, 7);
                     break;
             }
         }
@@ -29,9 +35,9 @@ namespace GlobalGameJam
             switch (type)
             {
                 case 1:
-                    if (accel >= 0)
+                    if (accel > 0)
                     {
-                        accel -= 1;
+                        accel -= 1f;
                     }
                     math(accel);
                     x += veclocity_x;

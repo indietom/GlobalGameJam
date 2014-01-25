@@ -15,10 +15,15 @@ namespace GlobalGameJam
             destroy = false;
             hp = 5;
         }
-        public void checkHelath()
+        public void checkHelath(List<particle> particles)
         {
+            Random random = new Random();
             if (hp <= 0)
             {
+                for (int i = 0; i < 100; i++)
+                {
+                    particles.Add(new particle(x + 12, y + 12, random.Next(360), "orange", 1, random.Next(5, 20)));
+                }
                 destroy = true;
             }
         }

@@ -7,6 +7,7 @@ namespace GlobalGameJam
 {
     class enemyBullet:objects
     {
+
         public int type;
         public enemyBullet(float x2, float y2, int type2)
         {

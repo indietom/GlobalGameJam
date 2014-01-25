@@ -25,6 +25,7 @@ namespace GlobalGameJam
             setSpriteCoords(1, 301);
             setSize(24, 49);
             inputActive = true;
+            gunType = 1;
         }
 
         public void input(List<bullet> bullets)
@@ -45,7 +46,15 @@ namespace GlobalGameJam
 
                 if (mouse.LeftButton == ButtonState.Pressed && firerate == 0 && gunType == 0 && buttonFalse == false)
                 {
-                    bullets.Add(new bullet(x+12, y));
+                    bullets.Add(new bullet(x+12, y, mouse.X, mouse.Y));
+                    firerate = 1;
+                    buttonFalse = true;
+                }
+                if (mouse.LeftButton == ButtonState.Pressed && firerate == 0 && gunType == 1 && buttonFalse == false)
+                {
+                    bullets.Add(new bullet(x + 12, y, mouse.X - 20, mouse.Y));
+                    bullets.Add(new bullet(x + 12, y, mouse.X, mouse.Y));
+                    bullets.Add(new bullet(x + 12, y, mouse.X + 20, mouse.Y));
                     firerate = 1;
                     buttonFalse = true;
                 }

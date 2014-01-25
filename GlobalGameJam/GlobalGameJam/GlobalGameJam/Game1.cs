@@ -124,7 +124,7 @@ namespace GlobalGameJam
             foreach (enemy e in enemies)
             {
                 e.movment(enemyBullets);
-                e.checkHealth(bloodSplatters);
+                e.checkHealth(bloodSplatters, particles);
                 enemyC = new Rectangle((int)e.x+6, (int)e.y+3, 11, 18);
                 foreach (wall w in walls)
                 {
@@ -168,7 +168,7 @@ namespace GlobalGameJam
             }
             foreach (wall w in walls)
             {
-                w.checkHelath();
+                w.checkHelath(particles);
             }
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -242,6 +242,8 @@ namespace GlobalGameJam
             {
                 spriteBatch.Draw(spritesheet, new Vector2(b.x, b.y), new Rectangle(b.imx, b.imy, b.width, b.height), Color.White, b.angle, new Vector2(6, 2), 1.0f, SpriteEffects.None, 0); 
             }
+            spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(581, 0, 110, 480), Color.White);
+            spriteBatch.Draw(spritesheet, new Vector2(690, 0), new Rectangle(691, 0, 110, 480), Color.White);
             MouseState mouse = Mouse.GetState();
             spriteBatch.Draw(spritesheet, new Vector2(mouse.X-6, mouse.Y-6), new Rectangle(1, 426, 12, 12), Color.White);
             spriteBatch.End();

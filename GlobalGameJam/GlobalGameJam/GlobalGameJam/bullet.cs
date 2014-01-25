@@ -17,13 +17,13 @@ namespace GlobalGameJam
 
         public int type;
 
-        public bullet(float x2,float y2)
+        public bullet(float x2,float y2, float x3, float y3)
         {
             setCoords(x2,y2);
             setSpriteCoords(27, 307);
             setSize(12, 5);
             MouseState mouse = Mouse.GetState();
-            mathAim(5, mouse.X, mouse.Y);
+            mathAim(5, x3, y3);
             destroy = false;
 
         }

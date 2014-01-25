@@ -24,7 +24,7 @@ namespace GlobalGameJam
             Random random = new Random();
             steps = 0;
             running = true;
-            maxSteps = random.Next(150);
+            maxSteps = random.Next(10, 140);
             switch (type)
             {
                 case 1:
@@ -52,7 +52,17 @@ namespace GlobalGameJam
                 if (type == 1 || type == 3)
                 {
                     bloodSplatters.Add(new blood(x, y));
-                    particles.Add(new particle(x
+                    for (int i = 0; i < 100; i++)
+                    {
+                        particles.Add(new particle(x + 12, y + 12, random.Next(360), "red", 1, random.Next(5, 20)));
+                    }
+                }
+                if (type == 2)
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        particles.Add(new particle(x + 12, y + 12, random.Next(360), "white", 1, random.Next(5, 20)));
+                    }
                 }
                 destroy = true;
             }
