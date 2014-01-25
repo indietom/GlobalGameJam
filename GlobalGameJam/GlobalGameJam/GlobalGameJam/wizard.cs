@@ -26,7 +26,7 @@ namespace GlobalGameJam
             setSpriteCoords(1, 1);
             inputActive = true;
         }
-        public void input()
+        public void input(List<enemy> enemies)
         {
             if (angle >= 360 || angle <= -360)
             {
@@ -35,6 +35,18 @@ namespace GlobalGameJam
             KeyboardState keyboard = Keyboard.GetState();
             if (inputActive)
             {
+                if (keyboard.IsKeyDown(Keys.D1))
+                {
+                    enemies.Add(new enemy(x, y, 1));
+                }
+                if (keyboard.IsKeyDown(Keys.D2))
+                {
+                    enemies.Add(new enemy(x, y, 2));
+                }
+                if (keyboard.IsKeyDown(Keys.D3))
+                {
+                    enemies.Add(new enemy(x, y, 3));
+                }
                 if (keyboard.IsKeyDown(Keys.A))
                 {
                     angle += 0.55f;

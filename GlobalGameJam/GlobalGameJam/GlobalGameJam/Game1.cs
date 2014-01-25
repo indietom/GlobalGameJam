@@ -40,7 +40,6 @@ namespace GlobalGameJam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            enemies.Add(new enemy(100, 400,2));
             base.Initialize();
         }
 
@@ -78,7 +77,7 @@ namespace GlobalGameJam
             KeyboardState keyboard = Keyboard.GetState();
             MouseState mouse = Mouse.GetState();
             tower.input(bullets);
-            wizard.input();
+            wizard.input(enemies);
             foreach (bullet b in bullets)
             {
                 b.movment();
