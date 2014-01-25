@@ -19,6 +19,16 @@ namespace GlobalGameJam
         public bool inputActive;
         public bool buttonFalse;
 
+        public void reset()
+        {
+            setCoords(400 - 16, 240 - 16);
+            setSpriteCoords(1, 301);
+            setSize(24, 49);
+            inputActive = true;
+            gunType = 1;
+            hp = 10;
+        }
+
         public tower()
         {
             setCoords(400 - 16,240 - 16);
@@ -26,8 +36,16 @@ namespace GlobalGameJam
             setSize(24, 49);
             inputActive = true;
             gunType = 1;
+            hp = 10;
         }
-
+        public void checkHelath()
+        {
+            if (hp <= 0)
+            {
+                inputActive = false;
+                setSpriteCoords(26, 326);
+            }
+        }
         public void input(List<bullet> bullets)
         {
             KeyboardState keyboard = Keyboard.GetState();

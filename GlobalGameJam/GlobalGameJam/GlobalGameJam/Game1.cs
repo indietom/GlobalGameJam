@@ -34,6 +34,7 @@ namespace GlobalGameJam
         
         tower tower = new tower();
         wizard wizard = new wizard();
+        menu menu = new menu();
         List<bullet> bullets = new List<bullet>();
         List<enemy> enemies = new List<enemy>();
         List<enemyBullet> enemyBullets = new List<enemyBullet>();
@@ -52,11 +53,17 @@ namespace GlobalGameJam
         }
 
         Texture2D spritesheet;
+        Texture2D p1winS;
+        Texture2D p2winS;
+        SpriteFont font;
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spritesheet = Content.Load<Texture2D>("spritesheet");
+            p1winS = Content.Load<Texture2D>("winScreen1");
+            p2winS = Content.Load<Texture2D>("winScreen");
+            font = Content.Load<SpriteFont>("font");
             // TODO: use this.Content to load your game content here
         }
 
@@ -81,6 +88,9 @@ namespace GlobalGameJam
                 return false;
             return true;
         }
+        string gameState = "game";
+        int countToMenu = 0;
+        int countToWinScreen = 0;
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -88,117 +98,161 @@ namespace GlobalGameJam
                 this.Exit();
 
             // TODO: Add your update logic here
-            Rectangle enemyC;
-            Rectangle wallC;
-            Rectangle bulletsC;
-            Rectangle enemyBulletsC;
-            Rectangle wizardC = new Rectangle((int)wizard.x, (int)wizard.y, 32, 32);
-            Rectangle towerC = new Rectangle(384, 228, 24, 48);
-            KeyboardState keyboard = Keyboard.GetState();
-            MouseState mouse = Mouse.GetState();
-            tower.input(bullets);
-            wizard.input(enemies);
-            wizard.manaAdding();
-            foreach (particle p in particles)
+            switch(gameState)
             {
-                p.movment();
-            }
-            foreach (bullet b in bullets)
-            {
-                b.movment();
-                bulletsC = new Rectangle((int)b.x, (int)b.y, 12, 12);
-                if (collision(bulletsC, wizardC))
-                {
-                    b.destroy = true;
-                }
-                foreach (enemy e in enemies)
-                {
-                    enemyC = new Rectangle((int)e.x + 6, (int)e.y + 3, 11, 18);
-                    if (collision(bulletsC, enemyC))
+                case "menu":
+                    wizard.reset();
+                    tower.reset();
+                    countToWinScreen = 0;
+                    countToMenu = 0;
+                    menu.input(ref gameState);
+                    break;
+                case "p1 win":
+                    countToMenu += 1;
+                    if (countToMenu >= 200)
                     {
-                        e.hp -= 1;
-                        b.destroy = true;
+                        gameState = "menu";
                     }
-                }
-            }
-            foreach (enemy e in enemies)
-            {
-                e.movment(enemyBullets);
-                e.animation();
-                e.checkHealth(bloodSplatters, particles);
-                enemyC = new Rectangle((int)e.x+6, (int)e.y+3, 11, 18);
-                foreach (wall w in walls)
-                {
-                    wallC = new Rectangle((int)w.x, (int)w.y, 16, 16);
-                    if (collision(towerC, enemyC) && e.type == 1 && !collision(wallC, enemyC))
+                    break;
+                case "p2 win":
+                    countToMenu += 1;
+                    if (countToMenu >= 200)
                     {
-                        e.running = false;
+                        gameState = "menu";
                     }
-                    if (collision(wallC, enemyC) && e.type == 1 && !collision(enemyC, towerC))
+                    break;
+                case "game":
+                    Rectangle enemyC;
+                    Rectangle wallC;
+                    Rectangle bulletsC;
+                    Rectangle enemyBulletsC;
+                    Rectangle wizardC = new Rectangle((int)wizard.x, (int)wizard.y, 32, 32);
+                    Rectangle towerC = new Rectangle(384, 228, 24, 48);
+                    KeyboardState keyboard = Keyboard.GetState();
+                    MouseState mouse = Mouse.GetState();
+                    tower.input(bullets);
+                    tower.checkHelath();
+                    wizard.input(enemies);
+                    wizard.manaAdding();
+                    wizard.checkHelath();
+                    if (wizard.hp <= 0 || tower.hp <= 0)
                     {
-                        e.running = false;
-                        if (e.attackCounter >= 20)
+                        countToWinScreen += 1;
+                    }
+                    if (countToWinScreen == 100)
+                    {
+                        if (wizard.hp <= 0)
                         {
-                            w.hp -= 1;
+                            gameState = "p1 win";
                         }
-                        if (w.hp <= 0)
+                        if (tower.hp <= 0)
                         {
-                            e.running = true;
+                            gameState = "p2 win";
                         }
                     }
-                    
-                }
-            }
-            foreach (enemyBullet eb in enemyBullets)
-            {
-                eb.movment();
-                enemyBulletsC = new Rectangle((int)eb.x, (int)eb.y, 6, 6);
-                if (collision(enemyBulletsC, towerC))
-                {
-                    eb.destroy = true;
-                }
-                foreach (wall w in walls)
-                {
-                    wallC = new Rectangle((int)w.x, (int)w.y, 16, 16);
-                    if (collision(enemyBulletsC, wallC))
+                    foreach (particle p in particles)
                     {
-                        w.hp -= 1;
-                        eb.destroy = true;
+                        p.movment();
                     }
-                }
-            }
-            foreach (wall w in walls)
-            {
-                w.checkHelath(particles);
-            }
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                if (enemies[i].destroy)
-                {
-                    enemies.RemoveAt(i);
-                }
-            }
-            for (int i = 0; i < bullets.Count; i++)
-            {
-                if (bullets[i].destroy)
-                {
-                    bullets.RemoveAt(i);
-                }
-            }
-            for (int i = 0; i < enemyBullets.Count; i++)
-            {
-                if (enemyBullets[i].destroy)
-                {
-                    enemyBullets.RemoveAt(i);
-                }
-            }
-            for (int i = 0; i < walls.Count; i++)
-            {
-                if (walls[i].destroy)
-                {
-                    walls.RemoveAt(i);
-                }
-            }
+                    foreach (bullet b in bullets)
+                    {
+                        b.movment();
+                        bulletsC = new Rectangle((int)b.x, (int)b.y, 12, 12);
+                        if (collision(bulletsC, wizardC))
+                        {
+                            wizard.hp -= 1;
+                            b.destroy = true;
+                        }
+                        foreach (enemy e in enemies)
+                        {
+                            enemyC = new Rectangle((int)e.x + 6, (int)e.y + 3, 11, 18);
+                            if (collision(bulletsC, enemyC))
+                            {
+                                e.hp -= 1;
+                                b.destroy = true;
+                            }
+                        }
+                    }
+                    foreach (enemy e in enemies)
+                    {
+                        e.movment(enemyBullets);
+                        e.animation();
+                        e.checkHealth(bloodSplatters, particles);
+                        enemyC = new Rectangle((int)e.x + 6, (int)e.y + 3, 11, 18);
+                        foreach (wall w in walls)
+                        {
+                            wallC = new Rectangle((int)w.x, (int)w.y, 16, 16);
+                            if (collision(towerC, enemyC) && e.type == 1 && !collision(wallC, enemyC))
+                            {
+                                e.running = false;
+                            }
+                            if (collision(wallC, enemyC) && e.type == 1 && !collision(enemyC, towerC))
+                            {
+                                e.running = false;
+                                if (e.attackCounter >= 20)
+                                {
+                                    w.hp -= 1;
+                                }
+                                if (w.hp <= 0)
+                                {
+                                    e.running = true;
+                                }
+                            }
+
+                        }
+                    }
+                    foreach (enemyBullet eb in enemyBullets)
+                    {
+                        eb.movment();
+                        enemyBulletsC = new Rectangle((int)eb.x, (int)eb.y, 6, 6);
+                        if (collision(enemyBulletsC, towerC))
+                        {
+                            eb.destroy = true;
+                        }
+                        foreach (wall w in walls)
+                        {
+                            wallC = new Rectangle((int)w.x, (int)w.y, 16, 16);
+                            if (collision(enemyBulletsC, wallC))
+                            {
+                                w.hp -= 1;
+                                eb.destroy = true;
+                            }
+                        }
+                    }
+                    foreach (wall w in walls)
+                    {
+                        w.checkHelath(particles);
+                    }
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        if (enemies[i].destroy)
+                        {
+                            enemies.RemoveAt(i);
+                        }
+                    }
+                    for (int i = 0; i < bullets.Count; i++)
+                    {
+                        if (bullets[i].destroy)
+                        {
+                            bullets.RemoveAt(i);
+                        }
+                    }
+                    for (int i = 0; i < enemyBullets.Count; i++)
+                    {
+                        if (enemyBullets[i].destroy)
+                        {
+                            enemyBullets.RemoveAt(i);
+                        }
+                    }
+                    for (int i = 0; i < walls.Count; i++)
+                    {
+                        if (walls[i].destroy)
+                        {
+                            walls.RemoveAt(i);
+                        }
+                    }
+            break;
+        }
             base.Update(gameTime);
         }
 
@@ -210,43 +264,54 @@ namespace GlobalGameJam
         {
             GraphicsDevice.Clear(Color.Green);
             spriteBatch.Begin();
-            for (int x = 0; x < 17; x++)
+            switch (gameState)
             {
-                for (int y = 0; y < 10; y++)
-                {
-                    spriteBatch.Draw(spritesheet, new Vector2(x * 49, y * 49), new Rectangle(101, 1, 49, 49), Color.White);
-                }
+                case "game":
+                    for (int x = 0; x < 17; x++)
+                    {
+                        for (int y = 0; y < 10; y++)
+                        {
+                            spriteBatch.Draw(spritesheet, new Vector2(x * 49, y * 49), new Rectangle(101, 1, 49, 49), Color.White);
+                        }
+                    }
+                    foreach (blood b in bloodSplatters)
+                    {
+                        b.drawSprite(spriteBatch, spritesheet);
+                    }
+                    foreach (particle p in particles)
+                    {
+                        p.drawSprite(spriteBatch, spritesheet);
+                    }
+                    tower.drawSprite(spriteBatch, spritesheet);
+                    wizard.drawSprite(spriteBatch, spritesheet);
+                    foreach (enemy e in enemies)
+                    {
+                        e.drawSprite(spriteBatch, spritesheet);
+                    }
+                    foreach (wall w in walls)
+                    {
+                        w.drawSprite(spriteBatch, spritesheet);
+                    }
+                    foreach (enemyBullet eb in enemyBullets)
+                    {
+                        eb.drawSprite(spriteBatch, spritesheet);
+                    }
+                    foreach (bullet b in bullets)
+                    {
+                        spriteBatch.Draw(spritesheet, new Vector2(b.x, b.y), new Rectangle(b.imx, b.imy, b.width, b.height), Color.White, b.angle, new Vector2(6, 2), 1.0f, SpriteEffects.None, 0);
+                    }
+                    spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(581, 0, 110, 480), Color.White);
+                    spriteBatch.Draw(spritesheet, new Vector2(690, 0), new Rectangle(691, 0, 110, 480), Color.White);
+                    MouseState mouse = Mouse.GetState();
+                    spriteBatch.Draw(spritesheet, new Vector2(mouse.X - 6, mouse.Y - 6), new Rectangle(1, 426, 12, 12), Color.White);
+                    break;
+                case "p1 win":
+                    spriteBatch.Draw(p1winS, new Vector2(0,0), Color.White);
+                    break;
+                case "p2 win":
+                    spriteBatch.Draw(p2winS, new Vector2(0, 0), Color.White);
+                    break;
             }
-            foreach (blood b in bloodSplatters)
-            {
-                b.drawSprite(spriteBatch, spritesheet);
-            }
-            foreach (particle p in particles)
-            {
-                p.drawSprite(spriteBatch, spritesheet);
-            }
-            tower.drawSprite(spriteBatch, spritesheet);
-            wizard.drawSprite(spriteBatch, spritesheet);
-            foreach (enemy e in enemies)
-            {
-                e.drawSprite(spriteBatch, spritesheet);
-            }
-            foreach (wall w in walls)
-            {
-                w.drawSprite(spriteBatch, spritesheet);
-            }
-            foreach (enemyBullet eb in enemyBullets)
-            {
-                eb.drawSprite(spriteBatch, spritesheet);
-            }
-            foreach (bullet b in bullets)
-            {
-                spriteBatch.Draw(spritesheet, new Vector2(b.x, b.y), new Rectangle(b.imx, b.imy, b.width, b.height), Color.White, b.angle, new Vector2(6, 2), 1.0f, SpriteEffects.None, 0); 
-            }
-            spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(581, 0, 110, 480), Color.White);
-            spriteBatch.Draw(spritesheet, new Vector2(690, 0), new Rectangle(691, 0, 110, 480), Color.White);
-            MouseState mouse = Mouse.GetState();
-            spriteBatch.Draw(spritesheet, new Vector2(mouse.X-6, mouse.Y-6), new Rectangle(1, 426, 12, 12), Color.White);
             spriteBatch.End();
             // TODO: Add your drawing code here
 

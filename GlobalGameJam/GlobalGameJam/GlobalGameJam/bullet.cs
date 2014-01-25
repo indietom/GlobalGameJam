@@ -14,7 +14,6 @@ namespace GlobalGameJam
 {
     class bullet : objects
     {
-
         public int type;
 
         public bullet(float x2,float y2, float x3, float y3)

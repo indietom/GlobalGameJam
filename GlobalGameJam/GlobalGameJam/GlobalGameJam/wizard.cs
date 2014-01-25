@@ -23,6 +23,17 @@ namespace GlobalGameJam
         public int mana;
         public int countToMana;
 
+        public void reset()
+        {
+            angle = 0f;
+            setCoords(384, 15);
+            setSize(32, 32);
+            setSpriteCoords(1, 1);
+            inputActive = true;
+            hp = 10;
+            mana = 1000;
+        }
+
         public wizard()
         {
             angle = 0f;
@@ -30,7 +41,16 @@ namespace GlobalGameJam
             setSize(32, 32);
             setSpriteCoords(1, 1);
             inputActive = true;
+            hp = 10;
             mana = 1000;
+        }
+        public void checkHelath()
+        {
+            if (hp <= 0)
+            {
+                inputActive = false;
+                imx = 34;
+            }
         }
         public void manaAdding()
         {

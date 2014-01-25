@@ -96,7 +96,6 @@ namespace GlobalGameJam
                     {
                         x += veclocity_x;
                         y += veclocity_y;
-                        animationActive = true;
                     }
                     attackCounter += 1;
                     if (attackCounter >= 21)
@@ -115,12 +114,13 @@ namespace GlobalGameJam
                             enemyBullets.Add(new enemyBullet(x + 12, y + 12, 1));
                             firerate = random.Next(20);
                         }
+                        animationActive = false;
+                        imx = 1;
                     }
                     if (steps < maxSteps) 
                     {
                         x += veclocity_x;
                         y += veclocity_y;
-                        animationActive = true;
                     }
                     break;
                 case 3:
@@ -130,7 +130,6 @@ namespace GlobalGameJam
                     {
                         x += veclocity_x;
                         y += veclocity_y;
-                        animationActive = true;
                     }
                     if (steps > maxSteps)
                     {
@@ -140,6 +139,8 @@ namespace GlobalGameJam
                             enemyBullets.Add(new enemyBullet(x + 12, y + 12, 1));
                             firerate = random.Next(20);
                         }
+                        animationActive = false;
+                        imx = 1;
                     }
                     break;
             }
