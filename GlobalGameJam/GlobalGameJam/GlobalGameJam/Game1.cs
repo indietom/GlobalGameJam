@@ -36,10 +36,11 @@ namespace GlobalGameJam
         wizard wizard = new wizard();
         List<bullet> bullets = new List<bullet>();
         List<enemy> enemies = new List<enemy>();
+        List<enemyBullet> enemyBullets = new List<enemyBullet>();
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            enemies.Add(new enemy(200, 400,3));
+            enemies.Add(new enemy(100, 400,2));
             base.Initialize();
         }
 
@@ -83,7 +84,11 @@ namespace GlobalGameJam
             }
             foreach (enemy e in enemies)
             {
-                e.movment();
+                e.movment(enemyBullets);
+            }
+            foreach (enemyBullet eb in enemyBullets)
+            {
+                eb.movment();
             }
             base.Update(gameTime);
         }
@@ -108,6 +113,10 @@ namespace GlobalGameJam
             foreach (enemy e in enemies)
             {
                 e.drawSprite(spriteBatch, spritesheet);
+            }
+            foreach (enemyBullet eb in enemyBullets)
+            {
+                eb.drawSprite(spriteBatch, spritesheet);
             }
             foreach (bullet b in bullets)
             {

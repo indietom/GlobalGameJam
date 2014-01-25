@@ -39,7 +39,7 @@ namespace GlobalGameJam
                     break;
             }
         }
-        public void movment()
+        public void movment(List<enemyBullet> enemyBullets)
         {
             Random random = new Random();
             switch (type)
@@ -52,6 +52,10 @@ namespace GlobalGameJam
                 case 2:
                     mathAim(4, 400 - 16, 240 - 16);
                     steps += 1;
+                    if (steps > maxSteps)
+                    {
+                        enemyBullets.Add(new enemyBullet(x, y, 1));
+                    }
                     if (steps < maxSteps) 
                     {
                         x += veclocity_x;
