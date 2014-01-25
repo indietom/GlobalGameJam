@@ -36,7 +36,7 @@ namespace GlobalGameJam
             setSize(24, 49);
             inputActive = true;
             gunType = 1;
-            hp = 10;
+            hp = 10*100;
         }
         public void checkHelath()
         {

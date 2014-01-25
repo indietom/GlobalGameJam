@@ -105,6 +105,12 @@ namespace GlobalGameJam
                     tower.reset();
                     countToWinScreen = 0;
                     countToMenu = 0;
+                    enemies.Clear();
+                    bullets.Clear();
+                    particles.Clear();
+                    bloodSplatters.Clear();
+                    enemyBullets.Clear();
+                    Initialize();
                     menu.input(ref gameState);
                     break;
                 case "p1 win":
@@ -179,6 +185,13 @@ namespace GlobalGameJam
                         e.animation();
                         e.checkHealth(bloodSplatters, particles);
                         enemyC = new Rectangle((int)e.x + 6, (int)e.y + 3, 11, 18);
+                        if (collision(towerC, enemyC))
+                        {
+                            if (e.attackCounter >= 20)
+                            {
+                                tower.hp -= 1;
+                            }
+                        }
                         foreach (wall w in walls)
                         {
                             wallC = new Rectangle((int)w.x, (int)w.y, 16, 16);
@@ -207,6 +220,7 @@ namespace GlobalGameJam
                         enemyBulletsC = new Rectangle((int)eb.x, (int)eb.y, 6, 6);
                         if (collision(enemyBulletsC, towerC))
                         {
+                            tower.hp -= 1;
                             eb.destroy = true;
                         }
                         foreach (wall w in walls)
@@ -262,7 +276,7 @@ namespace GlobalGameJam
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Green);
+            GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             switch (gameState)
             {
@@ -302,6 +316,7 @@ namespace GlobalGameJam
                     }
                     spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(581, 0, 110, 480), Color.White);
                     spriteBatch.Draw(spritesheet, new Vector2(690, 0), new Rectangle(691, 0, 110, 480), Color.White);
+                    spriteBatch.DrawString(font, "Mana: " + wizard.mana.ToString(), new Vector2(0,240), Color.White);
                     MouseState mouse = Mouse.GetState();
                     spriteBatch.Draw(spritesheet, new Vector2(mouse.X - 6, mouse.Y - 6), new Rectangle(1, 426, 12, 12), Color.White);
                     break;

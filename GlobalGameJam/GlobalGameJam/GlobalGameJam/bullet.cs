@@ -24,10 +24,13 @@ namespace GlobalGameJam
             MouseState mouse = Mouse.GetState();
             mathAim(5, x3, y3);
             destroy = false;
-
         }
         public void movment()
         {
+            if (x >= 800 || x < 0 || y > 480 || y < 0)
+            {
+                destroy = true;
+            }
             x += veclocity_x;
             y += veclocity_y;
         }

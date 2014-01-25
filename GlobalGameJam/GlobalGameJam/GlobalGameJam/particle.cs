@@ -28,6 +28,9 @@ namespace GlobalGameJam
                 case "orange":
                     setSpriteCoords(76, 7);
                     break;
+                case "grey":
+                    setSpriteCoords(76, 17);
+                    break;
             }
         }
         public void movment()
