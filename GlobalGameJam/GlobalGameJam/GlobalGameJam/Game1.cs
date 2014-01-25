@@ -33,6 +33,7 @@ namespace GlobalGameJam
         /// </summary>
         
         tower tower = new tower();
+        wizard wizard = new wizard();
         List<bullet> bullets = new List<bullet>();
         protected override void Initialize()
         {
@@ -98,7 +99,8 @@ namespace GlobalGameJam
                     spriteBatch.Draw(spritesheet, new Vector2(x * 49, y * 49), new Rectangle(101, 1, 49, 49), Color.White);
                 }
             }
-            tower.drawSprite(spriteBatch, spritesheet); 
+            tower.drawSprite(spriteBatch, spritesheet);
+            wizard.drawSprite(spriteBatch, spritesheet);
             foreach (bullet b in bullets)
             {
                 spriteBatch.Draw(spritesheet, new Vector2(b.x, b.y), new Rectangle(b.imx, b.imy, b.width, b.height), Color.White, b.angle, new Vector2(6, 2), 1.0f, SpriteEffects.None, 0); 
