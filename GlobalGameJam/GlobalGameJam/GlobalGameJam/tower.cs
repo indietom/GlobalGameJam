@@ -22,8 +22,8 @@ namespace GlobalGameJam
         public tower()
         {
             setCoords(400 - 16,240 - 16);
-            setSpriteCoords(1, 1);
-            setSize(32, 32);
+            setSpriteCoords(1, 301);
+            setSize(24, 49);
             inputActive = true;
         }
 
@@ -45,7 +45,7 @@ namespace GlobalGameJam
 
                 if (mouse.LeftButton == ButtonState.Pressed && firerate == 0 && gunType == 0 && buttonFalse == false)
                 {
-                    bullets.Add(new bullet(x, y));
+                    bullets.Add(new bullet(x+12, y));
                     firerate = 1;
                     buttonFalse = true;
                 }
