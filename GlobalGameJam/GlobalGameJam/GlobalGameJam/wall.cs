@@ -7,8 +7,9 @@ namespace GlobalGameJam
 {
     class wall : objects
     {
-        public wall()
+        public wall(float x2, float y2)
         {
+            setCoords(x2, y2);
             setSpriteCoords(1,451);
             setSize(16, 16);
         }
