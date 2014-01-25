@@ -94,7 +94,7 @@ namespace GlobalGameJam
             tower.drawSprite(spriteBatch, spritesheet); 
             foreach (bullet b in bullets)
             {
-                b.drawSprite(spriteBatch, spritesheet);
+                spriteBatch.Draw(spritesheet, new Vector2(b.x, b.y), new Rectangle(b.imx, b.imy, b.width, b.height), Color.White, b.angle, new Vector2(6, 2), 1.0f, SpriteEffects.None, 0); 
             }
             spriteBatch.End();
             // TODO: Add your drawing code here
