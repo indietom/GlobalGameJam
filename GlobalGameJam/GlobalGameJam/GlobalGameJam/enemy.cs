@@ -58,6 +58,15 @@ namespace GlobalGameJam
                         y += veclocity_y;
                     }
                     break;
+                case 3:
+                    mathAim(4, 400 - 16, 240 - 16);
+                    steps += 1;
+                    if (steps < maxSteps) 
+                    {
+                        x += veclocity_x;
+                        y += veclocity_y;
+                    }
+                    break;
             }
         }
     }

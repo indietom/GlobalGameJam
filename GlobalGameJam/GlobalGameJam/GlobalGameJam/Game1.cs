@@ -39,7 +39,7 @@ namespace GlobalGameJam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            enemies.Add(new enemy(100, 100,2));
+            enemies.Add(new enemy(200, 400,3));
             base.Initialize();
         }
 
@@ -113,6 +113,8 @@ namespace GlobalGameJam
             {
                 spriteBatch.Draw(spritesheet, new Vector2(b.x, b.y), new Rectangle(b.imx, b.imy, b.width, b.height), Color.White, b.angle, new Vector2(6, 2), 1.0f, SpriteEffects.None, 0); 
             }
+            MouseState mouse = Mouse.GetState();
+            spriteBatch.Draw(spritesheet, new Vector2(mouse.X, mouse.Y), new Rectangle(1, 426, 12, 12), Color.White);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
