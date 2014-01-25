@@ -20,14 +20,14 @@ namespace GlobalGameJam
         public bullet(float x2,float y2)
         {
             setCoords(x2,y2);
-            setSpriteCoords(1, 1);
-            setSize(64, 64);
+            setSpriteCoords(27, 307);
+            setSize(12, 5);
             MouseState mouse = Mouse.GetState();
-            mathAim(8, mouse.X, mouse.Y);
+            mathAim(5, mouse.X, mouse.Y);
+
         }
         public void movment()
         {
-            MouseState mouse = Mouse.GetState();
             x += veclocity_x;
             y += veclocity_y;
         }

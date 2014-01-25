@@ -89,7 +89,7 @@ namespace GlobalGameJam
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.Green);
             spriteBatch.Begin();
             tower.drawSprite(spriteBatch, spritesheet); 
             foreach (bullet b in bullets)

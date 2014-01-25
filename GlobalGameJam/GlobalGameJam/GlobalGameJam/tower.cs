@@ -17,6 +17,7 @@ namespace GlobalGameJam
 
         public int gunType;
         public bool inputActive;
+        public bool buttonFalse;
 
         public tower()
         {
@@ -36,16 +37,25 @@ namespace GlobalGameJam
                 {
                     firerate += 1;
 
-                    if (firerate >= 16)
+                    if (firerate >= 25)
                     {
                         firerate = 0;
                     }
                 }
 
-                if (mouse.LeftButton == ButtonState.Pressed && firerate == 0 && gunType == 0)
+                if (mouse.LeftButton == ButtonState.Pressed && firerate == 0 && gunType == 0 && buttonFalse == false)
                 {
                     bullets.Add(new bullet(x, y));
                     firerate = 1;
+                    buttonFalse = true;
+                }
+
+                if (buttonFalse)
+                {
+                    if (mouse.LeftButton == ButtonState.Released)
+                    {
+                        buttonFalse = false;
+                    }
                 }
 
             }
