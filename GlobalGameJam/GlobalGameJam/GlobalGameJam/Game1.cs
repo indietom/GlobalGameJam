@@ -78,6 +78,7 @@ namespace GlobalGameJam
             KeyboardState keyboard = Keyboard.GetState();
             MouseState mouse = Mouse.GetState();
             tower.input(bullets);
+            wizard.input();
             foreach (bullet b in bullets)
             {
                 b.movment();
@@ -123,7 +124,7 @@ namespace GlobalGameJam
                 spriteBatch.Draw(spritesheet, new Vector2(b.x, b.y), new Rectangle(b.imx, b.imy, b.width, b.height), Color.White, b.angle, new Vector2(6, 2), 1.0f, SpriteEffects.None, 0); 
             }
             MouseState mouse = Mouse.GetState();
-            spriteBatch.Draw(spritesheet, new Vector2(mouse.X, mouse.Y), new Rectangle(1, 426, 12, 12), Color.White);
+            spriteBatch.Draw(spritesheet, new Vector2(mouse.X-6, mouse.Y-6), new Rectangle(1, 426, 12, 12), Color.White);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
