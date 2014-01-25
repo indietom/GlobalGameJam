@@ -21,6 +21,7 @@ namespace GlobalGameJam
         public int imx;
         public int imy;
         public int hp;
+        public int firerate;
 
         public float speed;
         public float angle;

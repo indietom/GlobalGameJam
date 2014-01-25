@@ -33,6 +33,7 @@ namespace GlobalGameJam
         /// </summary>
         
         tower tower = new tower();
+        List<bullet> bullets = new List<bullet>();
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -74,6 +75,14 @@ namespace GlobalGameJam
 
             // TODO: Add your update logic here
 
+            KeyboardState keyboard = Keyboard.GetState();
+            MouseState mouse = Mouse.GetState();
+            tower.input(bullets);
+            foreach (bullet b in bullets)
+            {
+                b.movment();
+            }
+
             base.Update(gameTime);
         }
 
@@ -83,8 +92,13 @@ namespace GlobalGameJam
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin();
+            foreach (bullet b in bullets)
+            {
+            
+            }
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

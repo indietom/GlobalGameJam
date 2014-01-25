@@ -28,7 +28,7 @@ namespace GlobalGameJam
             MouseState mouse = Mouse.GetState();
             x += veclocity_x;
             y += veclocity_y;
-            mathAim(8, mouse.x, mouse.y);
+            mathAim(8, mouse.X, mouse.Y);
         }
     }
 }
