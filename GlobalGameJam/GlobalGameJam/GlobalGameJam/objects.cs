@@ -22,6 +22,7 @@ namespace GlobalGameJam
         public int imy;
         public int hp;
         public int firerate;
+        public int animatioCount;
 
         public float speed;
         public float angle;
@@ -30,8 +31,9 @@ namespace GlobalGameJam
         public float scale_y;
         public float veclocity_x;
         public float veclocity_y;
-
+        
         public bool destroy;
+        public bool animationActive;
 
         public void setCoords(float x2, float y2)
         {
