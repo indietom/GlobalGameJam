@@ -21,6 +21,9 @@ namespace GlobalGameJam
                 case 1:
                     setSpriteCoords(101,51);
                     break;
+                case 2:
+                    setSpriteCoords(76, 251);
+                    break;
             }
         }
         public void movment()

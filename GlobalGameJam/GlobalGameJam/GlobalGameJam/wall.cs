@@ -13,7 +13,7 @@ namespace GlobalGameJam
             setSpriteCoords(2,451);
             setSize(16, 16);
             destroy = false;
-            hp = 5;
+            hp = 15;
         }
         public void checkHelath(List<particle> particles)
         {

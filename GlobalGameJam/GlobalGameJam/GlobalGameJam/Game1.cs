@@ -124,6 +124,7 @@ namespace GlobalGameJam
             foreach (enemy e in enemies)
             {
                 e.movment(enemyBullets);
+                e.animation();
                 e.checkHealth(bloodSplatters, particles);
                 enemyC = new Rectangle((int)e.x+6, (int)e.y+3, 11, 18);
                 foreach (wall w in walls)

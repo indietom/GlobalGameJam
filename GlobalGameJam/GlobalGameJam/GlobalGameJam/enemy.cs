@@ -15,6 +15,8 @@ namespace GlobalGameJam
 
         public enemy(float x2, float y2, int type2)
         {
+            animatioCount = 0;
+            animationActive = true;
             firerate = 0;
             setCoords(x2, y2);
             setSize(24, 24);
@@ -67,6 +69,22 @@ namespace GlobalGameJam
                 destroy = true;
             }
         }
+        public void animation()
+        {
+            if (animationActive)
+            {
+                animatioCount += 1;
+                if (animatioCount == 10)
+                {
+                    imx += 25;
+                    animatioCount = 0;
+                }
+                if (imx == 76)
+                {
+                    imx = 1;
+                }
+            }
+        }
         public void movment(List<enemyBullet> enemyBullets)
         {
             Random random = new Random();
@@ -78,6 +96,7 @@ namespace GlobalGameJam
                     {
                         x += veclocity_x;
                         y += veclocity_y;
+                        animationActive = true;
                     }
                     attackCounter += 1;
                     if (attackCounter >= 21)
@@ -101,6 +120,7 @@ namespace GlobalGameJam
                     {
                         x += veclocity_x;
                         y += veclocity_y;
+                        animationActive = true;
                     }
                     break;
                 case 3:
@@ -110,6 +130,16 @@ namespace GlobalGameJam
                     {
                         x += veclocity_x;
                         y += veclocity_y;
+                        animationActive = true;
+                    }
+                    if (steps > maxSteps)
+                    {
+                        firerate += 1;
+                        if (firerate == 64 * 3)
+                        {
+                            enemyBullets.Add(new enemyBullet(x + 12, y + 12, 1));
+                            firerate = random.Next(20);
+                        }
                     }
                     break;
             }
