@@ -16,6 +16,27 @@ namespace GlobalGameJam
             type = type2;
             switch (type)
             {
+                case 1:
+                    // Bonne
+                    setSpriteCoords(1, 151);
+                    hp = 5;
+                    break;
+                case 2:
+                    //bone 
+                    setSpriteCoords(1, 51);
+                    hp = 3;
+                    break;
+                case 3:
+                    //wizard
+                    setSpriteCoords(1, 251);
+                    hp = 7;
+                    break;
+            }
+        }
+        public void movment()
+        {
+            switch (type)
+            {
 
             }
         }
