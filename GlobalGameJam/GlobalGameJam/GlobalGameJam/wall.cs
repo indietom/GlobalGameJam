@@ -12,6 +12,15 @@ namespace GlobalGameJam
             setCoords(x2, y2);
             setSpriteCoords(1,451);
             setSize(16, 16);
+            destroy = false;
+            hp = 5;
+        }
+        public void checkHelath()
+        {
+            if (hp <= 0)
+            {
+                destroy = true;
+            }
         }
     }
 }

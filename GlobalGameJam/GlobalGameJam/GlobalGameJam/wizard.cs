@@ -21,6 +21,7 @@ namespace GlobalGameJam
         public bool keyFalse2;
         public bool keyFalse3;
         public int mana;
+        public int countToMana;
 
         public wizard()
         {
@@ -30,6 +31,15 @@ namespace GlobalGameJam
             setSpriteCoords(1, 1);
             inputActive = true;
             mana = 1000;
+        }
+        public void manaAdding()
+        {
+            countToMana += 1;
+            if (countToMana == 64 * 5)
+            {
+                mana += 5;
+                countToMana = 0;
+            }
         }
         public void input(List<enemy> enemies)
         {

@@ -110,6 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="blood.cs" />
     <Compile Include="bullet.cs" />
     <Compile Include="enemy.cs" />
     <Compile Include="enemyBullet.cs" />
