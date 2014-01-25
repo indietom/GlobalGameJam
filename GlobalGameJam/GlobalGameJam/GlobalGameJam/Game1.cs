@@ -37,9 +37,17 @@ namespace GlobalGameJam
         List<bullet> bullets = new List<bullet>();
         List<enemy> enemies = new List<enemy>();
         List<enemyBullet> enemyBullets = new List<enemyBullet>();
+        List<wall> walls = new List<wall>();
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            foreach (wall w in walls)
+            {
+                for (float i = 0; i <= 360; i += 20 )
+                {
+                    w.setCoords(tower.x+(float)Math.Cos(i)*50, tower.y+(float)Math.Sin(i)*50);
+                }
+            }
             base.Initialize();
         }
 
