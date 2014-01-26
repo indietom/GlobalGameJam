@@ -8,6 +8,17 @@ namespace GlobalGameJam
     class powerUp:objects
     {
         public int type;
+        public int lifeTime;
+
+        public void checkLifeTime()
+        {
+            lifeTime += 1;
+            if (lifeTime >= 64*3)
+            {
+                destroy = true;
+            }
+        }
+
         public powerUp()
         {
             Random random = new Random();
@@ -15,6 +26,7 @@ namespace GlobalGameJam
             setSize(24, 24);
             destroy = false;
             type = random.Next(1, 4);
+            lifeTime = 0;
             switch (type)
             {
                 case 1:

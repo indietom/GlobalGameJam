@@ -22,9 +22,12 @@ namespace GlobalGameJam
         public bool keyFalse3;
         public int mana;
         public int countToMana;
+        public int magicSpell;
+        public int undoSpell;
 
         public void reset()
         {
+            magicSpell = 1;
             angle = 0f;
             setCoords(384, 15);
             setSize(32, 32);
@@ -32,17 +35,12 @@ namespace GlobalGameJam
             inputActive = true;
             hp = 10;
             mana = 1000;
+            undoSpell = 0;
         }
 
         public wizard()
         {
-            angle = 0f;
-            setCoords(384, 15);
-            setSize(32, 32);
-            setSpriteCoords(1, 1);
-            inputActive = true;
-            hp = 10;
-            mana = 1000;
+            reset();
         }
         public void checkHelath()
         {
@@ -61,7 +59,7 @@ namespace GlobalGameJam
                 countToMana = 0;
             }
         }
-        public void input(List<enemy> enemies)
+        public void input(List<enemy> enemies, ref bool inputActive2, List<enemyBullet> enemyBullets)
         {
             if (angle >= 360 || angle <= -360)
             {
@@ -70,6 +68,29 @@ namespace GlobalGameJam
             KeyboardState keyboard = Keyboard.GetState();
             if (inputActive)
             {
+                if (magicSpell == 3 && keyboard.IsKeyDown(Keys.Q))
+                {
+                    inputActive2 = false;
+                    undoSpell = 1;
+                    magicSpell = 0;
+                }
+                if (magicSpell == 1 && keyboard.IsKeyDown(Keys.Q))
+                {
+                    for (int i = 0; i < 20; i++)
+                    {
+                        enemyBullets.Add(new enemyBullet(x + 16 + i*5, y + 16, 3));
+                    }
+                    magicSpell = 0;
+                }
+                if (undoSpell >= 1)
+                {
+                    undoSpell += 1;
+                    if (undoSpell >= 64*2)
+                    {
+                        inputActive2 = true;
+                        undoSpell = 0;
+                    }
+                }
                 if (keyFalse)
                 {
                     if (keyboard.IsKeyUp(Keys.D1))

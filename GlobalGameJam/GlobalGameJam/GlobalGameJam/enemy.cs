@@ -91,7 +91,7 @@ namespace GlobalGameJam
             switch (type)
             {
                 case 1:
-                    mathAim(2, 400 - 10,240 - 16);
+                    mathAim(1, 400 - 10,240 - 16);
                     if (running)
                     {
                         x += veclocity_x;

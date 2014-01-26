@@ -42,6 +42,7 @@ namespace GlobalGameJam
         List<powerUp> powerUps = new List<powerUp>();
         List<blood> bloodSplatters = new List<blood>();
         List<particle> particles = new List<particle>();
+        List<runor> runorer = new List<runor>();
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -64,6 +65,8 @@ namespace GlobalGameJam
         Texture2D p2winS;
         SpriteFont font;
         SoundEffect towerHit;
+        SoundEffect runePickUp;
+        SoundEffect music;
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -73,6 +76,7 @@ namespace GlobalGameJam
             p2winS = Content.Load<Texture2D>("winScreen");
             font = Content.Load<SpriteFont>("font");
             towerHit = Content.Load<SoundEffect>("towerHit");
+            runePickUp = Content.Load<SoundEffect>("runePickup");
             // TODO: use this.Content to load your game content here
         }
 
@@ -101,6 +105,7 @@ namespace GlobalGameJam
         int countToMenu = 0;
         int countToWinScreen = 0;
         int spawnPowerUps = 0;
+        int spawnRunor = 0;
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -139,6 +144,7 @@ namespace GlobalGameJam
                     break;
                 case "game":
                     Rectangle enemyC;
+                    Rectangle runorC;
                     Rectangle wallC;
                     Rectangle bulletsC;
                     Rectangle enemyBulletsC;
@@ -150,7 +156,7 @@ namespace GlobalGameJam
                     tower.input(bullets);
                     tower.checkHelath();
                     tower.checkPowerUp();
-                    wizard.input(enemies);
+                    wizard.input(enemies, ref tower.inputActive, enemyBullets);
                     wizard.manaAdding();
                     wizard.checkHelath();
                     if (wizard.hp <= 0 || tower.hp <= 0)
@@ -169,10 +175,43 @@ namespace GlobalGameJam
                         }
                     }
                     spawnPowerUps += 1;
-                    if (spawnPowerUps == 64)
+                    if (spawnPowerUps == 64*3)
                     {
                         powerUps.Add(new powerUp());
                         spawnPowerUps = 0;
+                    }
+                    spawnRunor += 1;
+                    if (spawnRunor == 64*2)
+                    {
+                        runorer.Add(new runor());
+                        spawnRunor = 0;
+                    }
+                    foreach (runor r in runorer)
+                    {
+                        r.checkLifeTime();
+                        r.movment();
+                        runorC = new Rectangle((int)r.x, (int)r.y, 24, 24);
+                        if (collision(runorC, wizardC))
+                        {
+                            runePickUp.Play();
+                            switch (r.type)
+                            {
+                                case 1:
+                                    wizard.magicSpell = 1;
+                                    break;
+                                case 2:
+                                    wizard.magicSpell = 2;
+                                    break;
+                                case 3:
+                                    wizard.magicSpell = 3;
+                                    break;
+                            }
+                            r.destroy = true;
+                        }
+                    }
+                    foreach (powerUp pu in powerUps)
+                    {
+                        pu.checkLifeTime();
                     }
                     foreach (particle p in particles)
                     {
@@ -316,6 +355,13 @@ namespace GlobalGameJam
                             powerUps.RemoveAt(i);
                         }
                     }
+                    for (int i = 0; i < runorer.Count; i++)
+                    {
+                        if (runorer[i].destroy)
+                        {
+                            runorer.RemoveAt(i);
+                        }
+                    }
             break;
         }
             base.Update(gameTime);
@@ -372,9 +418,15 @@ namespace GlobalGameJam
                     {
                         pu.drawSprite(spriteBatch, spritesheet);
                     }
+                    foreach (runor r in runorer)
+                    {
+                        r.drawSprite(spriteBatch, spritesheet);
+                    }
                     spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(581, 0, 110, 480), Color.White);
                     spriteBatch.Draw(spritesheet, new Vector2(690, 0), new Rectangle(691, 0, 110, 480), Color.White);
                     spriteBatch.DrawString(font, "Mana: " + wizard.mana.ToString(), new Vector2(0,240), Color.White);
+                    spriteBatch.DrawString(font, "Helath: " + wizard.hp.ToString(), new Vector2(0, 270), Color.White);
+                    spriteBatch.DrawString(font, "Helath: " + tower.hp.ToString(), new Vector2(690, 270), Color.White);
                     MouseState mouse = Mouse.GetState();
                     spriteBatch.Draw(spritesheet, new Vector2(mouse.X - 6, mouse.Y - 6), new Rectangle(1, 426, 12, 12), Color.White);
                     break;

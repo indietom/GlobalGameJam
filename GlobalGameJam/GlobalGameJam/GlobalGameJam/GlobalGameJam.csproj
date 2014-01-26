@@ -121,6 +121,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="runor.cs" />
     <Compile Include="tower.cs" />
     <Compile Include="wall.cs" />
     <Compile Include="wizard.cs" />
