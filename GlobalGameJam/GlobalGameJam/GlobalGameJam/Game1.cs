@@ -44,18 +44,25 @@ namespace GlobalGameJam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            for (float i = 0; i < 360; i += 10)
-            {
-               walls.Add(new wall(tower.x+(float)Math.Cos(i)*50+5, tower.y+(float)Math.Sin(i)*50 + 20));
-            }
+            rebuildBarrier();
             walls.Add(new wall(9000, 9000));
             base.Initialize();
+        }
+
+        public void rebuildBarrier()
+        {
+            walls.Clear();
+            for (float i = 0; i < 360; i += 10)
+            {
+                walls.Add(new wall(tower.x + (float)Math.Cos(i) * 50 + 5, tower.y + (float)Math.Sin(i) * 50 + 20));
+            }
         }
 
         Texture2D spritesheet;
         Texture2D p1winS;
         Texture2D p2winS;
         SpriteFont font;
+        SoundEffect towerHit;
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -64,6 +71,7 @@ namespace GlobalGameJam
             p1winS = Content.Load<Texture2D>("winScreen1");
             p2winS = Content.Load<Texture2D>("winScreen");
             font = Content.Load<SpriteFont>("font");
+            towerHit = Content.Load<SoundEffect>("towerHit");
             // TODO: use this.Content to load your game content here
         }
 
@@ -88,7 +96,7 @@ namespace GlobalGameJam
                 return false;
             return true;
         }
-        string gameState = "game";
+        string gameState = "menu";
         int countToMenu = 0;
         int countToWinScreen = 0;
         protected override void Update(GameTime gameTime)
@@ -189,6 +197,7 @@ namespace GlobalGameJam
                         {
                             if (e.attackCounter >= 20)
                             {
+                                towerHit.Play();
                                 tower.hp -= 1;
                             }
                         }
@@ -220,6 +229,7 @@ namespace GlobalGameJam
                         enemyBulletsC = new Rectangle((int)eb.x, (int)eb.y, 6, 6);
                         if (collision(enemyBulletsC, towerC))
                         {
+                            towerHit.Play();
                             tower.hp -= 1;
                             eb.destroy = true;
                         }
