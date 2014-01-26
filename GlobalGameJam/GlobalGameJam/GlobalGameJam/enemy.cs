@@ -56,14 +56,14 @@ namespace GlobalGameJam
                     bloodSplatters.Add(new blood(x, y));
                     for (int i = 0; i < 70; i++)
                     {
-                        particles.Add(new particle(x + 12, y + 12, random.Next(360), "red", 1, random.Next(5, 20)));
+                        particles.Add(new particle(x + 12, y + 12, random.Next(360), "red", 1, random.Next(5, 50)));
                     }
                 }
                 if (type == 2)
                 {
                     for (int i = 0; i < 20; i++)
                     {
-                        particles.Add(new particle(x + 12, y + 12, random.Next(360), "white", 1, random.Next(5, 20)));
+                        particles.Add(new particle(x + 12, y + 12, random.Next(360), "white", 1, random.Next(5, 50)));
                     }
                 }
                 destroy = true;

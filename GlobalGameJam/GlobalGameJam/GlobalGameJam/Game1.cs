@@ -280,6 +280,9 @@ namespace GlobalGameJam
             spriteBatch.Begin();
             switch (gameState)
             {
+                case "menu":
+                    menu.drawMenu(spriteBatch, font);
+                    break;
                 case "game":
                     for (int x = 0; x < 17; x++)
                     {
