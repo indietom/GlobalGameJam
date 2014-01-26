@@ -34,7 +34,7 @@ namespace GlobalGameJam
             setSpriteCoords(1, 1);
             inputActive = true;
             hp = 10;
-            mana = 1000;
+            mana = 100;
             undoSpell = 0;
         }
 

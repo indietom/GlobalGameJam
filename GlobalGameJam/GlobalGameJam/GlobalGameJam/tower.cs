@@ -27,24 +27,19 @@ namespace GlobalGameJam
             setSize(24, 49);
             inputActive = true;
             gunType = 2;
-            hp = 10;
+            hp = 50;
         }
 
         public tower()
         {
-            setCoords(400 - 16,240 - 16);
-            setSpriteCoords(1, 301);
-            setSize(24, 49);
-            inputActive = true;
-            gunType = 2;
-            hp = 10*100;
+            reset();
         }
         public void checkPowerUp()
         {
             if (powerUpActive >= 1)
             {
                 powerUpActive += 1;
-                if (powerUpActive >= 32 * 5)
+                if (powerUpActive >= 64 * 7)
                 {
                     gunType = 0;
                     powerUpActive = 0;
@@ -69,7 +64,7 @@ namespace GlobalGameJam
                 {
                     firerate += 1;
 
-                    if (firerate >= 32)
+                    if (firerate >= 64+24)
                     {
                         firerate = 0;
                     }
@@ -92,7 +87,7 @@ namespace GlobalGameJam
                 if (mouse.LeftButton == ButtonState.Pressed && firerate <= 0 && gunType == 2)
                 {
                     bullets.Add(new bullet(x + 12, y, mouse.X, mouse.Y));
-                    firerate = 20;
+                    firerate = 70;
                 }
 
                 if (buttonFalse)

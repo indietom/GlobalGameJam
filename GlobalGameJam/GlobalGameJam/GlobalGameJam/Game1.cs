@@ -67,6 +67,7 @@ namespace GlobalGameJam
         SoundEffect towerHit;
         SoundEffect runePickUp;
         SoundEffect music;
+        SoundEffect wizardHit;
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -77,6 +78,7 @@ namespace GlobalGameJam
             font = Content.Load<SpriteFont>("font");
             towerHit = Content.Load<SoundEffect>("towerHit");
             runePickUp = Content.Load<SoundEffect>("runePickup");
+            wizardHit = Content.Load<SoundEffect>("wizardHit");
             music = Content.Load<SoundEffect>("music");
             // TODO: use this.Content to load your game content here
         }
@@ -225,6 +227,7 @@ namespace GlobalGameJam
                         if (collision(bulletsC, wizardC))
                         {
                             wizard.hp -= 1;
+                            wizardHit.Play();
                             b.destroy = true;
                         }
                         foreach (powerUp pu in powerUps)
@@ -427,6 +430,10 @@ namespace GlobalGameJam
                     spriteBatch.Draw(spritesheet, new Vector2(690, 0), new Rectangle(691, 0, 110, 480), Color.White);
                     spriteBatch.DrawString(font, "Mana: " + wizard.mana.ToString(), new Vector2(0,240), Color.White);
                     spriteBatch.DrawString(font, "Helath: " + wizard.hp.ToString(), new Vector2(0, 270), Color.White);
+                    if (wizard.magicSpell != 0)
+                    {
+                        spriteBatch.DrawString(font, "Hit Q to use \n magic spell", new Vector2(0, 290), Color.White);
+                    }
                     spriteBatch.DrawString(font, "Helath: " + tower.hp.ToString(), new Vector2(690, 270), Color.White);
                     MouseState mouse = Mouse.GetState();
                     spriteBatch.Draw(spritesheet, new Vector2(mouse.X - 6, mouse.Y - 6), new Rectangle(1, 426, 12, 12), Color.White);
