@@ -53,11 +53,11 @@ namespace GlobalGameJam
             {
                 selected = 1;
             }
-            if (selected == 1 && keyboard.IsKeyDown(Keys.X))
+            if (selected == 1 && keyboard.IsKeyDown(Keys.Enter))
             {
                 gameState = "game";
             }
-            if (selected == 3 && keyboard.IsKeyDown(Keys.X))
+            if (selected == 3 && keyboard.IsKeyDown(Keys.Enter))
             {
                 Environment.Exit(0);
             }

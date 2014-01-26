@@ -16,6 +16,7 @@ namespace GlobalGameJam
     {
 
         public int gunType;
+        public int powerUpActive;
         public bool inputActive;
         public bool buttonFalse;
 
@@ -25,7 +26,7 @@ namespace GlobalGameJam
             setSpriteCoords(1, 301);
             setSize(24, 49);
             inputActive = true;
-            gunType = 1;
+            gunType = 2;
             hp = 10;
         }
 
@@ -35,8 +36,20 @@ namespace GlobalGameJam
             setSpriteCoords(1, 301);
             setSize(24, 49);
             inputActive = true;
-            gunType = 1;
+            gunType = 2;
             hp = 10*100;
+        }
+        public void checkPowerUp()
+        {
+            if (powerUpActive >= 1)
+            {
+                powerUpActive += 1;
+                if (powerUpActive >= 32 * 5)
+                {
+                    gunType = 0;
+                    powerUpActive = 0;
+                }
+            }
         }
         public void checkHelath()
         {
@@ -75,6 +88,11 @@ namespace GlobalGameJam
                     bullets.Add(new bullet(x + 12, y, mouse.X + 20, mouse.Y));
                     firerate = 1;
                     buttonFalse = true;
+                }
+                if (mouse.LeftButton == ButtonState.Pressed && firerate <= 0 && gunType == 2)
+                {
+                    bullets.Add(new bullet(x + 12, y, mouse.X, mouse.Y));
+                    firerate = 20;
                 }
 
                 if (buttonFalse)

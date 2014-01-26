@@ -39,6 +39,7 @@ namespace GlobalGameJam
         List<enemy> enemies = new List<enemy>();
         List<enemyBullet> enemyBullets = new List<enemyBullet>();
         List<wall> walls = new List<wall>();
+        List<powerUp> powerUps = new List<powerUp>();
         List<blood> bloodSplatters = new List<blood>();
         List<particle> particles = new List<particle>();
         protected override void Initialize()
@@ -99,6 +100,7 @@ namespace GlobalGameJam
         string gameState = "menu";
         int countToMenu = 0;
         int countToWinScreen = 0;
+        int spawnPowerUps = 0;
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -142,10 +144,12 @@ namespace GlobalGameJam
                     Rectangle enemyBulletsC;
                     Rectangle wizardC = new Rectangle((int)wizard.x, (int)wizard.y, 32, 32);
                     Rectangle towerC = new Rectangle(384, 228, 24, 48);
+                    Rectangle powerUpsC;
                     KeyboardState keyboard = Keyboard.GetState();
                     MouseState mouse = Mouse.GetState();
                     tower.input(bullets);
                     tower.checkHelath();
+                    tower.checkPowerUp();
                     wizard.input(enemies);
                     wizard.manaAdding();
                     wizard.checkHelath();
@@ -164,6 +168,12 @@ namespace GlobalGameJam
                             gameState = "p2 win";
                         }
                     }
+                    spawnPowerUps += 1;
+                    if (spawnPowerUps == 64)
+                    {
+                        powerUps.Add(new powerUp());
+                        spawnPowerUps = 0;
+                    }
                     foreach (particle p in particles)
                     {
                         p.movment();
@@ -176,6 +186,30 @@ namespace GlobalGameJam
                         {
                             wizard.hp -= 1;
                             b.destroy = true;
+                        }
+                        foreach (powerUp pu in powerUps)
+                        {
+                            powerUpsC = new Rectangle((int)pu.x, (int)pu.y, 24, 24);
+                            if (collision(bulletsC, powerUpsC))
+                            {
+                                if (pu.type == 1)
+                                {
+                                    tower.gunType = 1;
+                                    tower.powerUpActive = 1;
+                                    pu.destroy = true;
+                                }
+                                if (pu.type == 2)
+                                {
+                                    rebuildBarrier();
+                                    pu.destroy = true;
+                                }
+                                if (pu.type == 3)
+                                {
+                                    tower.gunType = 2;
+                                    tower.powerUpActive = 1;
+                                    pu.destroy = true;
+                                }
+                            }
                         }
                         foreach (enemy e in enemies)
                         {
@@ -275,6 +309,13 @@ namespace GlobalGameJam
                             walls.RemoveAt(i);
                         }
                     }
+                    for (int i = 0; i < powerUps.Count; i++)
+                    {
+                        if (powerUps[i].destroy)
+                        {
+                            powerUps.RemoveAt(i);
+                        }
+                    }
             break;
         }
             base.Update(gameTime);
@@ -326,6 +367,10 @@ namespace GlobalGameJam
                     foreach (bullet b in bullets)
                     {
                         spriteBatch.Draw(spritesheet, new Vector2(b.x, b.y), new Rectangle(b.imx, b.imy, b.width, b.height), Color.White, b.angle, new Vector2(6, 2), 1.0f, SpriteEffects.None, 0);
+                    }
+                    foreach (powerUp pu in powerUps)
+                    {
+                        pu.drawSprite(spriteBatch, spritesheet);
                     }
                     spriteBatch.Draw(spritesheet, new Vector2(0, 0), new Rectangle(581, 0, 110, 480), Color.White);
                     spriteBatch.Draw(spritesheet, new Vector2(690, 0), new Rectangle(691, 0, 110, 480), Color.White);
