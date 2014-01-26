@@ -27,65 +27,21 @@ namespace GlobalGameJam
             keyFalse2 = false;
         }
         public void drawMenu(SpriteBatch spriteBatch, SpriteFont font)
-        {
-            spriteBatch.DrawString(font, "Player 2 spawns villegers with 1, skeletons \n with 2 and mini-wizards with 3 and moves \n in a circle with A and D", new Vector2(300, 240), Color.White);
-            spriteBatch.DrawString(font, "Player 1 aims and shoots with the mouse", new Vector2(300, 340), Color.White);
-            switch (selected)
-            {
-                case 1:
-                    spriteBatch.DrawString(font, "-> Start Game \n How to \n Quit ", new Vector2(100, 240), Color.White);
-                    break;
-                case 2:
-                    spriteBatch.DrawString(font, "Start Game \n-> How to \n Quit ", new Vector2(100, 240), Color.White);
-                    break;
-                case 3:
-                    spriteBatch.DrawString(font, "Start Game \n How to \n-> Quit ", new Vector2(100, 240), Color.White);
-                    break;
-            }
+         {
+            spriteBatch.DrawString(font, "A evil wizard has taken the residents of your village\n   under control using magic! You have to stop him \n           before he destroys your tower!", new Vector2(100, 10), Color.White);
+            spriteBatch.DrawString(font, "Player 1: left mouse button to shoot, right mouse button to use powerups", new Vector2(5, 100), Color.White);
+            spriteBatch.DrawString(font, "Player 2: spawns villagers with 1, skeletons with 2, mini-wizards \n   with 3, S to use spells and moves in a circle with A and D.", new Vector2(5, 125), Color.White);
+            spriteBatch.DrawString(font, "   Press Enter to start\nBetween Archers and Wizard!", new Vector2(250, 200), Color.White);
         }
         public void input(ref string gameState)
         {
             KeyboardState keyboard = Keyboard.GetState();
-            if (selected == 0)
-            {
-                selected = 3;
-            }
-            if (selected == 4)
-            {
-                selected = 1;
-            }
-            if (selected == 1 && keyboard.IsKeyDown(Keys.Enter))
+
+            if (keyboard.IsKeyDown(Keys.Enter))
             {
                 gameState = "game";
             }
-            if (selected == 3 && keyboard.IsKeyDown(Keys.Enter))
-            {
-                Environment.Exit(0);
-            }
-            if (keyFalse1)
-            {
-                if (keyboard.IsKeyUp(Keys.Up))
-                {
-                    keyFalse1 = false;
-                }
-            }
-            if (keyFalse2)
-            {
-                if (keyboard.IsKeyUp(Keys.Down))
-                {
-                    keyFalse2 = false;
-                }
-            }
-            if (keyboard.IsKeyDown(Keys.Down) && !keyFalse2)
-            {
-                selected += 1;
-                keyFalse2 = true;
-            }
-            if (keyboard.IsKeyDown(Keys.Up) && !keyFalse1)
-            {
-                selected -= 1;
-                keyFalse1 = true;
-            }
+        }
         }
     }
-}
+
