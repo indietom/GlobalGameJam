@@ -28,11 +28,11 @@ namespace GlobalGameJam
         }
         public void drawMenu(SpriteBatch spriteBatch, SpriteFont font)
          {
-            spriteBatch.DrawString(font, "A evil wizard has taken the residents of your village\n   under control using magic! You have to stop him \n           before he destroys your tower!", new Vector2(100, 10), Color.White);
-            spriteBatch.DrawString(font, "Player 1: left mouse button to shoot, right mouse button to use powerups", new Vector2(5, 100), Color.White);
-            spriteBatch.DrawString(font, "Player 2: spawns villagers with 1, skeletons with 2, mini-wizards \n   with 3, S to use spells and moves in a circle with A and D.", new Vector2(5, 125), Color.White);
-            spriteBatch.DrawString(font, "   Press Enter to start\nBetween Archers and Wizard!", new Vector2(250, 200), Color.White);
-            spriteBatch.DrawString(font, "\"graphics doesn't make a game\"", new Vector2(240, 300), Color.White);
+            spriteBatch.DrawString(font, "A evil wizard has taken the residents of your village\n   under control using magic! You have to stop him \n           before he destroys your tower!", new Vector2(200, 10), Color.White);
+            spriteBatch.DrawString(font, "Player 1: left mouse button to shoot", new Vector2(260, 100), Color.White);
+            spriteBatch.DrawString(font, "Player 2: spawns villagers with 1, skeletons with 2, mini-wizards \n   with 3, Q to use spells and moves in a circle with A and D.", new Vector2(160, 125), Color.White);
+            spriteBatch.DrawString(font, "   Press Enter to start\nBetween Archers and Wizard!", new Vector2(300, 200), Color.White);
+            spriteBatch.DrawString(font, "\"graphics doesn't make a game\"", new Vector2(290, 300), Color.White);
         }
         public void input(ref string gameState)
         {
