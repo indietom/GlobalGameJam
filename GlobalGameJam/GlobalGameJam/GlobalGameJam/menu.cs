@@ -32,6 +32,7 @@ namespace GlobalGameJam
             spriteBatch.DrawString(font, "Player 1: left mouse button to shoot, right mouse button to use powerups", new Vector2(5, 100), Color.White);
             spriteBatch.DrawString(font, "Player 2: spawns villagers with 1, skeletons with 2, mini-wizards \n   with 3, S to use spells and moves in a circle with A and D.", new Vector2(5, 125), Color.White);
             spriteBatch.DrawString(font, "   Press Enter to start\nBetween Archers and Wizard!", new Vector2(250, 200), Color.White);
+            spriteBatch.DrawString(font, "\"graphics doesn't make a game\"", new Vector2(240, 300), Color.White);
         }
         public void input(ref string gameState)
         {

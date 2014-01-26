@@ -77,6 +77,7 @@ namespace GlobalGameJam
             font = Content.Load<SpriteFont>("font");
             towerHit = Content.Load<SoundEffect>("towerHit");
             runePickUp = Content.Load<SoundEffect>("runePickup");
+            music = Content.Load<SoundEffect>("music");
             // TODO: use this.Content to load your game content here
         }
 
